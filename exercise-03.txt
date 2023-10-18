@@ -1,0 +1,43 @@
+import java.util.Scanner;
+class voc_exercise_01{
+public static void main(String[] args) {
+    System.out.println("\n\t\tDataFlair's Password Strength Checker \n");
+    System.out.println("Enter the password: \n");
+    Scanner sc = new Scanner(System.in);
+    String password = sc.nextLine();
+    String strength = passwordStrength(password);
+    System.out.println("Strength: " + strength);
+ }
+ public static String passwordStrength(String pass){
+    boolean containsLowerChar= false, containsUpperChar = false;
+    boolean containsDigit = false, containsSpecialChar = false,    minLength = false;
+    String special_chars = "!(){}[]:;<>?,@#$%^&*+=_-~`|./'";
+    String strength;
+    char[] ch= pass.toCharArray();
+    for(int i=0; i<pass.length(); i++){
+   if(Character.isLowerCase(ch[i])){
+       containsLowerChar = true;
+   }
+   if(Character.isUpperCase(ch[i])){
+       containsUpperChar = true;
+   }
+   if(Character.isDigit(ch[i])){
+       containsDigit = true;
+   }
+   if(special_chars.contains(String.valueOf(ch[i]))){
+       containsSpecialChar = true;
+   }
+}
+if (pass.length() >= 12){
+   minLength = true;
+}
+if(minLength && containsDigit && containsUpperChar && containsSpecialChar && containsLowerChar){
+   strength = "Strong";
+} else if (minLength && ((containsUpperChar && containsLowerChar) || containsDigit || containsSpecialChar )) {
+   strength = "Medium";
+}else{
+   strength = "Weak";
+}
+return strength;
+ }
+}
